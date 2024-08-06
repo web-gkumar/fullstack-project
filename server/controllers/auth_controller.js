@@ -1,4 +1,4 @@
-const UserModel = require("../models/user_model");
+const UserModel = require("../models/auth_schema");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -31,13 +31,13 @@ const loginUser = async (req,res) => {
     if(!ispassEquel){
       return res.status(401).json({ message: 'Invalid username/password' })
     }
-    const jwtTokenObj = {
+    const loginUser = {
       _id: user.id,
       fullName: user.fullName,
       email: user.email
     }
-    const jwtoken = jwt.sign(jwtTokenObj, process.env.SECRET, {expiresIn: '4h'});
-    return res.status(200).json({jwtoken, jwtTokenObj});
+    const jwtoken = jwt.sign(loginUser, process.env.SECRET, {expiresIn: '4h'});
+    return res.status(200).json({jwtoken});
 
   } catch (error) {
     return res.status(500).json({ message: 'error', error });

@@ -3,10 +3,12 @@ const express = require('express');
 const app = express();
 const {port} = process.env;
 const routers = require('./server/routers/routers');
-
+const cors = require('cors');
+app.use(cors());
 // Routs
 app.use(express.json());
-app.use(routers)
+app.use(routers);
+
 
 
 // DB Connections
