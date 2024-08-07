@@ -13,7 +13,7 @@ const registerUser = async (req,res) => {
       }else {
         const response = await userModel.save();
         response.password = undefined;
-        return res.status(201).json({message: 'Success', data:response})
+        return res.status(201).json({message: 'Registation Success'})
       }
   } catch (error) {
     return res.status(500).json({message: 'error', error})

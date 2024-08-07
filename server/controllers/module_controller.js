@@ -1,11 +1,11 @@
-const {setModuleSchema} = require('../models/module_schema');
+const {moduleSchema} = require('../models/module_schema');
 
 
 const createModule = async (req, res) => {
-    const moduleItem = new setModuleSchema(req.body);
+    const moduleItem = new moduleSchema(req.body);
     try {
       await moduleItem.save();
-      res.status(201).send(moduleItem);
+      res.status(201).json({message: 'Success', data:moduleItem});
     } catch (error) {
       res.status(400).send(error);
     }
@@ -14,8 +14,8 @@ const createModule = async (req, res) => {
 
 const getModules = async (req, res) => {
     try {
-      const moduleItem = await setModuleSchema.find({});
-      res.send(moduleItem);
+      const moduleItem = await moduleSchema.find({});
+      res.status(200).json({message: 'Success', data:moduleItem});
     } catch (error) {
       res.status(500).send(error);
     }
@@ -24,11 +24,11 @@ const getModules = async (req, res) => {
 
 const updatModule = async (req, res) => {
     try {
-      const moduleItem = await setModuleSchema.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      const moduleItem = await moduleSchema.findByIdAndUpdate(req.params.id, req.body, { new: true });
       if (!moduleItem) {
-        return res.status(404).send();
+        return res.status(404).json({message: 'Data Not Showing'});
       }
-      res.send(moduleItem);
+      res.status(200).json({message: 'Success', data:moduleItem});
     } catch (error) {
       res.status(400).send(error);
     }
@@ -36,11 +36,11 @@ const updatModule = async (req, res) => {
 
 const deleteModule = async (req, res) => {
     try {
-      const moduleItem = await setModuleSchema.findByIdAndDelete(req.params.id);
+      const moduleItem = await moduleSchema.findByIdAndDelete(req.params.id);
       if (!item) {
-        return res.status(404).send();
+        return res.status(404).json({message: 'Data Not Showing'});
       }
-      res.send(moduleItem);
+      res.status(200).json({message: 'Success', data:moduleItem});
     } catch (error) {
       res.status(500).send(error);
     }

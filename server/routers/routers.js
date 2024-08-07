@@ -10,7 +10,7 @@ routers.post('/signin', userSignInValidation, loginUser);
 routers.get('/getUser', verifyToken, getUsers);
 
 routers.post('/createModule', createModule);
-routers.get('/getModule', getModules);
+routers.get('/modules', getModules);
 routers.patch('/modules/:id', updatModule);
 routers.delete('/modules/:id', deleteModule);
 
