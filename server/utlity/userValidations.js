@@ -29,11 +29,11 @@ const userSignInValidation = (req,res,next) => {
 
 
 const verifyToken = (req,res,next) => {
-    if(!req.header('Authorization')){
-        return res.status(401).json({ message: 'Token is required' });
+    if(!req.headers['authorization']){
+        return res.status(403).json({ message: 'Token is required'});
     }
     try {
-        const decoded = jwt.verify(req.header('Authorization'), process.env.SECRET)
+        const decoded = jwt.verify(req.headers['authorization'], process.env.SECRET)
         req.userId = decoded.userId;
         next();
     } catch (error) {

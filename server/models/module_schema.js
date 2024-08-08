@@ -1,4 +1,3 @@
-const { string } = require('joi');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -32,5 +31,5 @@ const setModuleSchema = new Schema({
 
 
 
-const moduleSchema = mongoose.model('modules', setModuleSchema)
+const moduleSchema = mongoose.model('app_modules', setModuleSchema)
 module.exports = {moduleSchema};
