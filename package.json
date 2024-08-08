@@ -18,8 +18,8 @@
     "express": "^4.19.2",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
-    "mongodb": "^4.1.0",
-    "mongoose": "^5.13.9",
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.5.2",
     "nodemailer": "^6.9.14"
   },
   "devDependencies": {

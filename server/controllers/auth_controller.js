@@ -13,7 +13,7 @@ const registerUser = async (req,res) => {
       }else {
         const response = await userModel.save();
         response.password = undefined;
-        return res.status(201).json({message: 'Success', data:response})
+        return res.status(201).json({message: 'Registation Success'})
       }
   } catch (error) {
     return res.status(500).json({message: 'error', error})
@@ -36,7 +36,7 @@ const loginUser = async (req,res) => {
       fullName: user.fullName,
       email: user.email
     }
-    const jwtoken = jwt.sign(loginUser, process.env.SECRET, {expiresIn: '4h'});
+    const jwtoken = jwt.sign(loginUser, process.env.SECRET, {expiresIn: '2d'});
     return res.status(200).json({jwtoken});
 
   } catch (error) {

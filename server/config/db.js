@@ -4,8 +4,7 @@ const {DATABASE_URL} = process.env;
 
 const connectDB = async () => {
     try {
-        const DB_OPTIONS = { dbName: "myapp", useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true}
-        await mongoose.connect(DATABASE_URL, DB_OPTIONS );
+        await mongoose.connect(DATABASE_URL);
         console.log("database Successfull connected...")
     } catch (error) {
        console.error("Dababase Not Connected...");
