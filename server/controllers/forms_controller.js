@@ -5,7 +5,7 @@ const createForm = async (req, res) => {
     const moduleItem = new formsSchema(req.body);
     try {
       await moduleItem.save();
-      res.status(201).json({message: 'Success', data:moduleItem});
+      res.status(201).json({message: 'Form Successful Created', data:moduleItem});
     } catch (error) {
       res.status(400).send(error);
     }
