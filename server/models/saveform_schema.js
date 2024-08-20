@@ -1,19 +1,12 @@
-const { Schema, default: mongoose } = require('mongoose');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 
-const FormSchema = new Schema({
-
-}, {strict : false});
-
-
-
-
-const saveFormSchema = mongoose.model("app_saveForms", FormSchema);
-
+const collectionSchema = new mongoose.Schema({}, { strict: false });
 
 
 module.exports = {
-    saveFormSchema
+    collectionSchema
 }
 
 
