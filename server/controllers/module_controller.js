@@ -24,7 +24,7 @@ const getModules = async (req, res) => {
 
 const updatModule = async (req, res) => {
     try {
-      const moduleItem = await moduleSchema.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      const moduleItem = await moduleSchema.findByIdAndUpdate(req.params.id, req.body);
       if (!moduleItem) {
         return res.status(404).json({message: 'Data Id not Match'});
       }
