@@ -19,7 +19,18 @@ const getModules = async (req, res) => {
     } catch (error) {
       res.status(500).send(error);
     }
+}
+
+const getCurrentModule = async (req, res) => {
+  try {
+    const formItem = await moduleSchema.findOne({ moduleName: req.params.moduleName});
+    if (!formItem) return res.status(404).json({ message: 'Form not found' });
+    formItem['isFormCreations'] = false;
+    res.status(200).json({ message: 'Success', data: formItem });
+  } catch (error) {
+    res.status(500).send(error);
   }
+}
 
 
 const updatModule = async (req, res) => {
@@ -49,4 +60,4 @@ const deleteModule = async (req, res) => {
 
 
 
-module.exports = {createModule, getModules, updatModule, deleteModule}
+module.exports = {createModule, getModules, getCurrentModule, updatModule, deleteModule}

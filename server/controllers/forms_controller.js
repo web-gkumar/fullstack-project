@@ -20,9 +20,21 @@ const getForms = async (req, res) => {
   }
 }
 
+const getSingleForm = async (req, res) => {
+  try {
+    const formItem = await formcontrolSchema.findOne({ formName: req.params.formName});
+    if (!formItem) return res.status(404).json({ message: 'Form not found' });
+    formItem['isFormCreations'] = false;
+    res.status(200).json({ message: 'Success', data: formItem });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+}
+
+
 const updatForm = async (req, res) => {
   try {
-    const moduleItem = await formcontrolSchema.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const moduleItem = await formcontrolSchema.findByIdAndUpdate(req.params.id, req.body);
     if (!moduleItem) {
       return res.status(404).json({ message: 'Data Id not Match' });
     }
@@ -47,4 +59,4 @@ const deleteForm = async (req, res) => {
 
 
 
-module.exports = { createForm, getForms, updatForm, deleteForm }
+module.exports = { createForm, getForms, getSingleForm, updatForm, deleteForm }
