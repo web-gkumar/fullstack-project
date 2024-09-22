@@ -1,3 +1,4 @@
+const { string, number } = require('joi');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -10,22 +11,11 @@ const validatorSchema = new Schema({
     required: Boolean,
     message: String,
     pattern: String,
-    customError: String
+    minLength: Number,
+    maxLength: Number,
   });
   
-  // Define the styles schema
-  const styleSchema = new Schema({
-    "margin-top": String,
-    "margin-right": String,
-    "margin-bottom": String,
-    "margin-left": String,
-    "padding-top": String,
-    "padding-right": String,
-    "padding-bottom": String,
-    "padding-left": String,
-    background: String
-  });
-  
+
   // Define form control values schema (for radio and checkbox)
   const controlValueSchema = new Schema({
     isChecked: Boolean,
@@ -45,7 +35,6 @@ const validatorSchema = new Schema({
     type: String,
     formate: String, // specific to date fields
     validators: [validatorSchema],
-    styles: [styleSchema],
     values: [controlValueSchema] // for radio/checkbox fields
   });
   
