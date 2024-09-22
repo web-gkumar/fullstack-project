@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const { formcontrolSchema } = require('../models/formcontrol_schema');
-const { collectionSchema } = require('../models/saveform_schema');
 
 const createForm = async (req, res) => {
   const moduleItem = new formcontrolSchema(req.body);
@@ -12,21 +11,6 @@ const createForm = async (req, res) => {
   }
 }
 
-
-
-
-const saveForm = async (req, res) => {
-  try {
-    const dynamicModel = mongoose.model(req.body.collectionName, collectionSchema);
-    let moduleItem = new dynamicModel(req.body);
-    await moduleItem.save();
-    res.status(201).json({ message: 'Form Successfully Saved', data: moduleItem });
-  } catch (error) {
-    res.status(400).send(error);
-  }
-}
-
-
 const getForms = async (req, res) => {
   try {
     const moduleItem = await formcontrolSchema.find({});
@@ -36,23 +20,21 @@ const getForms = async (req, res) => {
   }
 }
 
-
-const getByCollections = async (req, res) => {
-  const collectionModel = mongoose.model(req.body.collectionName, collectionSchema);
+const getSingleForm = async (req, res) => {
   try {
-    const moduleItem = await collectionModel.find({});
-
-    res.status(200).json({ message: 'Success', data: moduleItem });
+    const formItem = await formcontrolSchema.findOne({ formName: req.params.formName});
+    if (!formItem) return res.status(404).json({ message: 'Form not found' });
+    formItem['isFormCreations'] = false;
+    res.status(200).json({ message: 'Success', data: formItem });
   } catch (error) {
     res.status(500).send(error);
   }
-
 }
 
 
 const updatForm = async (req, res) => {
   try {
-    const moduleItem = await formcontrolSchema.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const moduleItem = await formcontrolSchema.findByIdAndUpdate(req.params.id, req.body);
     if (!moduleItem) {
       return res.status(404).json({ message: 'Data Id not Match' });
     }
@@ -66,7 +48,7 @@ const deleteForm = async (req, res) => {
   try {
     const moduleItem = await formcontrolSchema.findByIdAndDelete(req.params.id);
     if (!moduleItem) {
-      return res.status(404).json({ message: 'Data Id not Match' });
+      return res.status(404).json({ message: 'Data Id not Match'});
     }
     res.status(200).json({ message: 'Data Successfull Deleted' });
   } catch (error) {
@@ -77,4 +59,4 @@ const deleteForm = async (req, res) => {
 
 
 
-module.exports = { createForm, saveForm, getForms, updatForm, getByCollections, deleteForm }
+module.exports = { createForm, getForms, getSingleForm, updatForm, deleteForm }
