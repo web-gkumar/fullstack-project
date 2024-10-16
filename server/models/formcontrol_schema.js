@@ -31,11 +31,16 @@ const validatorSchema = new Schema({
     placeholder: String,
     class: String,
     disabled: Boolean,
-    hideOnGrid: Boolean,
+    hideGridFields: Boolean,
+    isShowIf: Boolean,
+    showField: String,
+    showFieldItems: String,
+    hideFieldOnConditions: Boolean,
     type: String,
-    formate: String, // specific to date fields
+    isMandatory: Boolean,
+    formate: String,
     validators: [validatorSchema],
-    values: [controlValueSchema] // for radio/checkbox fields
+    values: [controlValueSchema]
   });
   
   // Define the form button schema
@@ -53,6 +58,9 @@ const formcontrol = new Schema({
     isFormCreations: Boolean,
     gridUpdateMode: Boolean,
     pojo: String,
+    isPopup: Boolean,
+    isImport: Boolean,
+    isPDFDownload: Boolean,
     gridButtons: [buttonSchema],
     formsButtons: [buttonSchema],
     formControls: [formControlSchema],
