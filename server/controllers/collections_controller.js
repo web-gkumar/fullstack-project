@@ -26,10 +26,13 @@ const saveDyanimicFormsData = async (req, res) => {
   }
   
 
-  const getSingleDataByCollections = async (req, res) => {
+  const updateCollections = async (req, res) => {
     const collectionModel = mongoose.model(req.body.pojo, collectionSchema);
     try {
       const moduleItem = await collectionModel.findByIdAndUpdate(req.params.id, req.body);
+      if(!moduleItem){
+        return res.status(404).json({message: 'Data Id not Match'});
+      }
       res.status(200).json({ message: 'Success', data: moduleItem });
     } catch (error) {
       res.status(500).send(error);
@@ -46,4 +49,4 @@ const saveDyanimicFormsData = async (req, res) => {
     }
   }
   
-module.exports = {saveDyanimicFormsData, getByCollections, getSingleDataByCollections, deleteGrid}  
+module.exports = {saveDyanimicFormsData, getByCollections, updateCollections, deleteGrid}  
